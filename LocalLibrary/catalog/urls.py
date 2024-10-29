@@ -11,15 +11,11 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
-]
-
-urlpatterns += [
     path('book/<uuid:pk>/renew/', views.renew_book_librarian, name='renew-book-librarian'),
-]
-
-urlpatterns += [
+    path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
     path('author/create/', views.AuthorCreate.as_view(), name='author-create'),
     path('author/<int:pk>/update/', views.AuthorUpdate.as_view(), name='author-update'),
     path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author-delete'),
+    path('cart/', views.CartDetailView.as_view(), name='cart-detail'),
+    path('cart/add/<int:book_id>/', views.add_to_cart, name='add-to-cart'),
 ]

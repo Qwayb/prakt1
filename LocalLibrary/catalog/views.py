@@ -114,3 +114,30 @@ class AuthorUpdate(UpdateView):
 class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from .models import Cart, CartItem
+
+@login_required
+def add_to_cart(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, book=book)
+    if not created:
+        cart_item.quantity += 1
+    cart_item.save()
+
+    return redirect('cart-detail')
+
+from django.views.generic import DetailView
+
+class CartDetailView(LoginRequiredMixin, DetailView):
+    model = Cart
+    template_name = 'catalog/cart_detail.html'
+
+    def get_object(self):
+        cart, created = Cart.objects.get_or_create(user=self.request.user)
+        return cart

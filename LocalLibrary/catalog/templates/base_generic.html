@@ -29,6 +29,8 @@
               <li><a href="{% url 'index' %}">Home</a></li>
               <li><a href="{% url 'books' %}">All books</a></li>
               <li><a href="{% url 'authors' %}">All authors</a></li>
+              <li><a href="{% url 'cart-detail' %}">Cart</a></li>
+
               <br>
               <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
               {% else %}

@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>My cart</h1>
+
+  {% if cart.items.all %}
+    <ul>
+      {% for item in cart.items.all %}
+        <li>{{ item.book.title }} - quantity: {{ item.quantity }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>cart is empty</p>
+  {% endif %}
+{% endblock %}
